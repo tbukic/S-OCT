@@ -6,6 +6,8 @@ from sklearn.preprocessing import KBinsDiscretizer, MinMaxScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.datasets import load_iris, load_wine, load_breast_cancer
 
+from scripts.consts import proj_paths
+
 class CandidateThresholdBinarizer(TransformerMixin, BaseEstimator):
     """ Binarize continuous data using candidate thresholds.
     
@@ -127,7 +129,7 @@ def load_acute_inflammations(decision_number):
     """
     if decision_number not in [1, 2]:
         raise ValueError("problem_number must be 1 or 2")
-    df = pd.read_csv("datasets/diagnosis.data",
+    df = pd.read_csv(proj_paths.data.diagnosis,
             names=["a1","a2","a3","a4","a5","a6","d1","d2"], decimal=',',
             encoding='utf-16', delim_whitespace=True)
     y = df["d{}".format(decision_number)]
@@ -156,7 +158,7 @@ def load_balance_scale():
     https://archive.ics.uci.edu/ml/datasets/Balance+Scale
     """
     names = ["class","left weight","left distance","right weight","right distance"]
-    df = pd.read_csv("datasets/balance-scale.data", names=names)
+    df = pd.read_csv(proj_paths.data.balance_scale, names=names)
     y = df["class"]
     X = df.drop(columns="class")
     return X, y
@@ -169,7 +171,7 @@ def load_banknote_authentication():
     https://archive.ics.uci.edu/ml/datasets/banknote+authentication
     """
     names = ["variance","skewness","curtosis","entropy","class"]
-    df = pd.read_csv("datasets/data_banknote_authentication.txt", names=names)
+    df = pd.read_csv(proj_paths.data.banknote, names=names)
     y = df["class"]
     X = df.drop(columns="class")
     return X, y
@@ -182,7 +184,7 @@ def load_blood_transfusion():
     https://archive.ics.uci.edu/ml/datasets/Blood+Transfusion+Service+Center
     """
     names = ["recency","frequency","monetary","time","class"]
-    df = pd.read_csv("datasets/transfusion.data", header=0, names=names)
+    df = pd.read_csv(proj_paths.data.transfusion, header=0, names=names)
     y = df["class"]
     X = df.drop(columns="class")
     return X, y
@@ -195,7 +197,7 @@ def load_car_evaluation():
     https://archive.ics.uci.edu/ml/datasets/Car+Evaluation
     """
     names = ["buying","maint","doors","persons","lug_boot","safety","class"]
-    df = pd.read_csv("datasets/car.data", names=names)
+    df = pd.read_csv(proj_paths.data.car, names=names)
     y = df["class"]
     X = df.drop(columns="class")
     return X, y
@@ -208,7 +210,7 @@ def load_chess():
     https://archive.ics.uci.edu/ml/datasets/Chess+%28King-Rook+vs.+King-Pawn%29
     """
     names = list("a{}".format(j+1) for j in range(36)) + ["class"]
-    df = pd.read_csv("datasets/kr-vs-kp.data", names=names)
+    df = pd.read_csv(proj_paths.data.kr_vs_kp, names=names)
     y = df["class"]
     X = df.drop(columns="class")
     return X, y
@@ -220,7 +222,7 @@ def load_climate_model_crashes():
     
     https://archive.ics.uci.edu/ml/datasets/climate+model+simulation+crashes
     """
-    df = pd.read_csv("datasets/pop_failures.dat", delim_whitespace=True)
+    df = pd.read_csv(proj_paths.data.pop_failures, delim_whitespace=True)
     y = df["outcome"]
     X = df.drop(columns=["Study","Run","outcome"])
     return X, y
@@ -233,7 +235,7 @@ def load_congressional_voting_records():
     https://archive.ics.uci.edu/ml/datasets/Congressional+Voting+Records
     """
     names = list("a{}".format(j+1) for j in range(17))
-    df = pd.read_csv("datasets/house-votes-84.data", names=names)
+    df = pd.read_csv(proj_paths.data.house_votes_84, names=names)
     y = df["a1"]
     X = df.drop(columns="a1")
     return X, y
@@ -245,7 +247,7 @@ def load_glass_identification():
     
     https://archive.ics.uci.edu/ml/datasets/glass+identification
     """
-    df = pd.read_csv("datasets/glass.data",
+    df = pd.read_csv(proj_paths.data.glass,
             names=["Id number","RI","Na","Mg","Al","Si","K","Ca","Ba","Fe","Type of glass"],
             index_col="Id number")
     y = df["Type of glass"]
@@ -260,12 +262,12 @@ def load_hayes_roth():
     
     https://archive.ics.uci.edu/ml/datasets/Hayes-Roth
     """
-    df = pd.read_csv("datasets/hayes-roth.data",
+    df = pd.read_csv(proj_paths.data.hayes_roth_train,
             names=["name","hobby","age","educational level","marital status","class"],
             index_col="name")
     y_train = df["class"]
     X_train = df.drop(columns="class")
-    df = pd.read_csv("datasets/hayes-roth.test",
+    df = pd.read_csv(proj_paths.data.hayes_roth_test,
             names=["hobby","age","educational level","marital status","class"])
     y_test = df["class"]
     X_test = df.drop(columns="class")
@@ -280,10 +282,10 @@ def load_image_segmentation():
     http://archive.ics.uci.edu/ml/datasets/image+segmentation
     """
     names = ["class"] + list("a{}".format(j+1) for j in range(19))
-    df = pd.read_csv("datasets/segmentation.data", skiprows=5, names=names)
+    df = pd.read_csv(proj_paths.data.segmentation_train, skiprows=5, names=names)
     y_train = df["class"]
     X_train = df.drop(columns="class")
-    df = pd.read_csv("datasets/segmentation.test", skiprows=5, names=names)
+    df = pd.read_csv(proj_paths.data.segmentation_test, skiprows=5, names=names)
     y_test = df["class"]
     X_test = df.drop(columns="class")
     return X_train, X_test, y_train, y_test
@@ -296,7 +298,7 @@ def load_ionosphere():
     https://archive.ics.uci.edu/ml/datasets/ionosphere
     """
     names = list("a{}".format(j+1) for j in range(34)) + ["class"]
-    df = pd.read_csv("datasets/ionosphere.data", names=names)
+    df = pd.read_csv(proj_paths.data.ionosphere, names=names)
     y = df["class"]
     X = df.drop(columns="class")
     return X, y
@@ -312,8 +314,8 @@ def load_monks_problems(problem_number):
     if problem_number not in {1, 2, 3}:
         raise ValueError("problem_number must be 1, 2, or 3")
     for t in ['train', 'test']:
-        filename = "datasets/monks-{}.{}".format(problem_number, t)
-        df = pd.read_csv(filename,
+        monks_version = f"{problem_number}.{t}"
+        df = pd.read_csv(proj_paths.data.monks[monks_version],
                 names=["class","a1","a2","a3","a4","a5","a6","Id"],
                 index_col="Id",
                 delim_whitespace=True)
@@ -356,7 +358,7 @@ def load_parkinsons():
     
     https://archive.ics.uci.edu/ml/datasets/parkinsons
     """
-    df = pd.read_csv("datasets/parkinsons.data", index_col="name")
+    df = pd.read_csv(proj_paths.data.parkinsons, index_col="name")
     y = df["status"]
     X = df.drop(columns="status")
     return X, y
@@ -369,7 +371,7 @@ def load_soybean_small():
     https://archive.ics.uci.edu/ml/datasets/Soybean+%28Small%29
     """
     names = list("a{}".format(j+1) for j in range(35)) + ["class"]
-    df = pd.read_csv("datasets/soybean-small.data", names=names)
+    df = pd.read_csv(proj_paths.data.soybean, names=names)
     y = df["class"]
     X = df.drop(columns="class")
     return X, y
@@ -382,7 +384,7 @@ def load_tictactoe_endgame():
     https://archive.ics.uci.edu/ml/datasets/Tic-Tac-Toe+Endgame
     """
     names = list("a{}".format(j+1) for j in range(9)) + ["class"]
-    df = pd.read_csv("datasets/tic-tac-toe.data", names=names)
+    df = pd.read_csv(proj_paths.data.tic_tac_toe, names=names)
     y = df["class"]
     X = df.drop(columns="class")
     return X, y

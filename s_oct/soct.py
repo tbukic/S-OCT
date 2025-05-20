@@ -1,15 +1,17 @@
-import time
-from numbers import Integral, Real
+import gurobipy as gp
 import numpy as np
 import pandas as pd
+import time
+
+from numbers import Integral, Real
+from gurobipy import GRB
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from sklearn.utils.multiclass import unique_labels
-import gurobipy as gp
-from gurobipy import GRB
-from .l1svm import L1SVM
-from .decision_tree import MultivariateDecisionTree
-from .decision_tree_heuristics import MultivariateClassificationTreeHeuristic
+
+from s_oct.l1svm import L1SVM
+from s_oct.decision_tree import MultivariateDecisionTree
+from s_oct.decision_tree_heuristics import MultivariateClassificationTreeHeuristic
 
 class SOCT(BaseEstimator, ClassifierMixin):
     """Multivariate decision tree trained using the S-OCT MIP model.

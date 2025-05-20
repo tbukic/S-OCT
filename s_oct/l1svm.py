@@ -1,9 +1,10 @@
+import gurobipy as gp
 import numpy as np
 import pandas as pd
+
+from gurobipy import GRB
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
-import gurobipy as gp
-from gurobipy import GRB
 
 class L1SVM(ClassifierMixin, BaseEstimator):
     """1-norm hard-margin SVM trained using linear programming.

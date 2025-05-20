@@ -1,5 +1,6 @@
-"""OCT-H (Interpretable AI) comprehensive experiments."""
+"""OCT (Interpretable AI) comprehensive experiments."""
 import time
+
 from datetime import datetime
 from sklearn.base import BaseEstimator, ClassifierMixin
 from interpretableai import iai
@@ -8,15 +9,21 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import Pipeline
 from sklearn.utils import shuffle
 from sklearn.model_selection import cross_validate
-from datasets import *
 
-class OCTH(BaseEstimator, ClassifierMixin):
+from scripts.consts import proj_paths
+from scripts.datasets import (
+    Bucketizer, QuantileBucketizer, 
+    load_balance_scale, load_congressional_voting_records, load_soybean_small,
+    load_banknote_authentication, load_blood_transfusion, load_ionosphere, load_parkinsons
+)
+
+class OCT(BaseEstimator, ClassifierMixin):
     def __init__(self, max_depth):
         self.max_depth = max_depth
     
     def fit(self, X, y):
         # Tune cp
-        grid = iai.GridSearch(iai.OptimalTreeClassifier(max_depth=self.max_depth, hyperplane_config={'sparsity': 'all'}, random_seed=1))
+        grid = iai.GridSearch(iai.OptimalTreeClassifier(max_depth=self.max_depth, random_seed=1))
         grid.fit(X, y)
         best_cp = grid.get_best_params()['cp']
         self.cp_ = best_cp
@@ -24,7 +31,7 @@ class OCTH(BaseEstimator, ClassifierMixin):
         # Solve again, this time without spending time on tuning
         # This training time is what we report
         start_time = time.perf_counter()
-        tree = iai.OptimalTreeClassifier(max_depth=self.max_depth, hyperplane_config={'sparsity': 'all'}, cp=best_cp, random_seed=1)
+        tree = iai.OptimalTreeClassifier(max_depth=self.max_depth, cp=best_cp, random_seed=1)
         tree.fit(X, y)
         self.fit_time_ = time.perf_counter() - start_time
         self.tree_ = tree
@@ -49,7 +56,7 @@ for dataset in datasets:
             X, y = dataset(return_X_y=True, as_frame=True)
         else:
             X, y = dataset()
-        tree = OCTH(max_depth=max_depth)
+        tree = OCT(max_depth=max_depth)
         if dataset in categorical_datasets:
             clf = Pipeline([
                 ('pre', OneHotEncoder(drop='if_binary', sparse_output=False, handle_unknown='ignore')),
@@ -66,9 +73,9 @@ for dataset in datasets:
         estimators = cv_results['estimator']
         train_times = [e.named_steps['tree'].fit_time_ for e in estimators]
         cp_values = [e.named_steps['tree'].cp_ for e in estimators]
-        line = ["OCT-H", dataset_name, max_depth,
+        line = ["OCT", dataset_name, max_depth,
                 *train_scores, *test_scores, *train_times,
                 *cp_values]
         line = [str(x) for x in line]
-        with open("comprehensive.csv", 'a') as f:
+        with open(proj_paths.results.comprehensive, 'a') as f:
             f.write(', '.join(line) + '\n')

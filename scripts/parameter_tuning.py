@@ -1,9 +1,14 @@
 """S-OCT parameter tuning experiments."""
 from datetime import datetime
+
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 from sklearn.model_selection import ParameterGrid
-from datasets import *
-from src.soct import SOCT
+
+from s_oct.soct import SOCT
+from scripts.datasets import (
+    load_hayes_roth, load_tictactoe_endgame,
+    load_climate_model_crashes, load_glass_identification, load_image_segmentation
+)
 
 categorical_datasets = [load_hayes_roth, load_tictactoe_endgame]
 numerical_datasets = [load_climate_model_crashes, load_glass_identification, load_image_segmentation]

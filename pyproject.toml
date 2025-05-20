@@ -1,0 +1,21 @@
+[project]
+name = "S-OCT"
+version = "0.1.0"
+description = ""
+authors = [
+    {name="Zach Zhou"},
+    {name="Tom Bukic", email="tom@bukic.net"}
+]
+readme = "README.md"
+dependencies = [
+    "attr",
+    "pandas",
+    "scikit-learn",
+    "pydl8.5",
+    "interpretableai",
+    "gurobipy"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

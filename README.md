@@ -8,7 +8,7 @@ demonstrated in the script `soct_comprehensive.py`.
 
 Our code for S-OCT, as well as our reimplementations of
 [OCT/OCT-H](https://www.mit.edu/~dbertsim/papers/Machine%20Learning%20under%20a%20Modern%20Optimization%20Lens/Optimal_classification_trees_MachineLearning.pdf)
-and [FlowOCT](https://arxiv.org/abs/2103.15965), can be found in the `src`
+and [FlowOCT](https://arxiv.org/abs/2103.15965), can be found in the `s_oct`
 folder.
 
 The `datasets` folder contains datasets from the
@@ -28,7 +28,7 @@ The `*_mip.py` scripts run the direct MIP comparison described in Section 6.1.2;
 these scripts write results to `mip_comparison.csv`. The `*_comprehensive.py`
 scripts run the comprehensive comparison desribed in Section 6.1.3; these
 scripts write results to `comprehensive.csv`. In addition to the models in
-`src`, our experiments also test models from
+`s_oct`, our experiments also test models from
 [Interpretable AI](https://www.interpretable.ai/) and
 [PyDL8.5](https://www.ijcai.org/Proceedings/2020/0750.pdf).
 

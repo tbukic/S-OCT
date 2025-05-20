@@ -1,12 +1,14 @@
-import time
+import gurobipy as gp
 import numpy as np
 import pandas as pd
+import time
+
+from gurobipy import GRB
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from sklearn.utils.multiclass import unique_labels
-import gurobipy as gp
-from gurobipy import GRB
-from .decision_tree import UnivariateDecisionTree, MultivariateDecisionTree
+
+from s_oct.decision_tree import UnivariateDecisionTree, MultivariateDecisionTree
 
 class OCT(ClassifierMixin, BaseEstimator):
     """Our implementation of OCT and OCT-H from Bertsimas and Dunn (2017).

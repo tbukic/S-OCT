@@ -1,14 +1,17 @@
-import time
+import gurobipy as gp
 import numpy as np
 import pandas as pd
+import time
+
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from sklearn.utils.multiclass import unique_labels
 from sklearn.tree import DecisionTreeClassifier
-import gurobipy as gp
+
 from gurobipy import GRB
-from .decision_tree import UnivariateDecisionTree
-from .decision_tree_heuristics import extract_sklearn_tree
+
+from s_oct.decision_tree import UnivariateDecisionTree
+from s_oct.decision_tree_heuristics import extract_sklearn_tree
 
 class FlowOCT(ClassifierMixin, BaseEstimator):
     """Our implementation of FlowOCT (Aghaei et al. (2021)).

@@ -1,9 +1,15 @@
 """S-OCT MIP comparison experiments."""
 from datetime import datetime
+
 from sklearn.datasets import load_iris, load_wine, load_breast_cancer
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
-from datasets import *
-from src.soct import SOCT
+
+from scripts.consts import proj_paths
+from s_oct.soct import SOCT
+from scripts.datasets import (
+    load_balance_scale, load_congressional_voting_records, load_soybean_small,
+    load_banknote_authentication, load_blood_transfusion, load_ionosphere, load_parkinsons
+)
 
 categorical_datasets = [load_balance_scale, load_congressional_voting_records, load_soybean_small]
 sklearn_datasets = [load_iris, load_wine, load_breast_cancer]
@@ -54,5 +60,5 @@ for dataset in datasets:
             line = [f"SOCT-{model_name}", dataset_name, max_depth,
                     train_time, ub, lb, mip_gap, time_improvement, gap_improvement]
             line = [str(x) for x in line]
-            with open("mip_comparison.csv", 'a') as f:
+            with open(proj_paths.results.mip_comparison, 'a') as f:
                 f.write(', '.join(line) + '\n')

@@ -2,8 +2,14 @@
 from datetime import datetime
 from sklearn.datasets import load_iris, load_wine, load_breast_cancer
 from sklearn.preprocessing import OneHotEncoder
-from datasets import *
-from src.flow_oct import FlowOCT
+
+from scripts.consts import proj_paths
+from scripts.datasets import (
+    QuantileBucketizer, 
+    load_balance_scale, load_congressional_voting_records, load_soybean_small,
+    load_banknote_authentication, load_blood_transfusion, load_ionosphere, load_parkinsons
+)
+from s_oct.flow_oct import FlowOCT
 
 categorical_datasets = [load_balance_scale, load_congressional_voting_records, load_soybean_small]
 sklearn_datasets = [load_iris, load_wine, load_breast_cancer]
@@ -38,5 +44,5 @@ for benders in [False, True]:
             line = [model_name, dataset_name, max_depth,
                     train_time, ub, lb, mip_gap, "#N/A", "#N/A"]
             line = [str(x) for x in line]
-            with open("mip_comparison.csv", 'a') as f:
+            with open(proj_paths.results.mip_comparison, 'a') as f:
                 f.write(', '.join(line) + '\n')
