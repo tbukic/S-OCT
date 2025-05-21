@@ -81,6 +81,7 @@ class OCT(ClassifierMixin, BaseEstimator):
         # Check that X and y have correct shape, convert X and y to ndarrays
         X, y = check_X_y(X, y)
         
+        self.classes_ = unique_labels(y)
         # Check that all entries of X are normalized to [0, 1]
         if not np.all(np.logical_and(X >= -np.finfo(float).eps,
                                      X <= 1.0 + np.finfo(float).eps)):
