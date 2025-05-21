@@ -32,6 +32,13 @@ scripts write results to `comprehensive.csv`. In addition to the models in
 [Interpretable AI](https://www.interpretable.ai/) and
 [PyDL8.5](https://www.ijcai.org/Proceedings/2020/0750.pdf).
 
+## Installation
+This package is installable via [uv](https://github.com/astral-sh/uv) package manager (tested on Ubuntu 22.04) via command:
+```
+uv add uv add "s_oct @ git+https://github.com/tbukic/S-OCT"
+```
+The installation is not tested with other package managers.
+
 ### References
 1. Boutilier, J., Michini, C., Zhou, Z. (2022). *Shattering Inequalities for Learning Optimal Decision Trees.* Proceedings of CPAIOR 2022. [DOI:10.1007/978-3-031-08011-1_7](https://doi.org/10.1007/978-3-031-08011-1_7) (**Best paper award**)
 2. Boutilier, J., Michini, C., Zhou, Z. (2023). *Optimal multivariate decision trees.* Constraints. [DOI:10.1007/s10601-023-09367-y](https://doi.org/10.1007/s10601-023-09367-y)
