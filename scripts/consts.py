@@ -1,4 +1,4 @@
-from attr import frozen
+from attrs import frozen
 from pathlib import Path
 
 _project_root = Path(__file__).parent.parent
